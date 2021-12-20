@@ -155,7 +155,7 @@ config: |
       option httpchk OPTIONS /master
       http-check expect status 200
       default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
-      server acid-minimal-cluster.default.svc.cluster.local acid-minimal-cluster.default.svc.cluster.local:5432 maxconn 100 check port 8008
+      server {{ .Values.postgres.writeUrl }} acid-minimal-cluster.default.svc.cluster.local:5432 maxconn 100 check port 8008
 
 ## Additional secrets to mount as volumes
 ## This is expected to be an array of dictionaries specifying the volume name, secret name and mount path
@@ -268,5 +268,4 @@ service:
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-traffic-policy
   # externalTrafficPolicy: Cluster
 postgres:
-  writeUrl: 
-  readUrl: 
+  writeUrl: acid-minimal-cluster.default.svc.cluster.local
