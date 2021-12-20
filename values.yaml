@@ -57,7 +57,7 @@ daemonset:
     tcp: 5432
     https: 443
     stat: 1024
-
+    
 ## Init Containers
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 initContainers: []
@@ -152,10 +152,7 @@ config: |
     
   listen ReadWrite  
       bind *:5432
-      option httpchk OPTIONS /master
-      http-check expect status 200
-      default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
-      server {{ .Values.postgres.writeUrl }} acid-minimal-cluster.default.svc.cluster.local:5432 maxconn 100 check port 8008
+      server {{ .Values.postgres.writeUrl }} {{ .Values.postgres.writeUrl }}:5432 maxconn 100 check
 
 ## Additional secrets to mount as volumes
 ## This is expected to be an array of dictionaries specifying the volume name, secret name and mount path

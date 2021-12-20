@@ -47,10 +47,6 @@ spec:
   - name: {{ $key }}
     protocol: TCP
     port: {{ $port }}
-    targetPort: {{ $key }}
-  - name: check
-    protocol: TCP
-    port: 8008
-    targetPort: 8008    
+    targetPort: {{ $key }}  
   {{- end }}
   {{- end }}
